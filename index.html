@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #imgWrap{
+            width:600px;
+            height:600px ;
+            margin:0 auto;
+        }
+        img{
+            width: 25%;
+            height: 25%;
+            margin:0;
+            padding:0;
+        }
+        input{
+            position: fixed;
+            top: 400px;
+            right:100px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="imgWrap">
+        <img src="image/face01.jpg" alt=""><img src="image/face02.jpg" alt=""><img src="image/face03.jpg" alt=""><img
+            src="image/face04.jpg" alt=""><img src="image/face05.jpg" alt=""><img src="image/face06.jpg" alt=""><img
+            src="image/face07.jpg" alt=""><img src="image/face08.jpg" alt=""><img src="image/face09.jpg" alt=""><img
+            src="image/face10.jpg" alt=""><img src="image/face11.jpg" alt=""><img src="image/face12.jpg" alt=""><img
+            src="image/face13.jpg" alt=""><img src="image/face14.jpg" alt=""><img src="image/face15.jpg" alt=""><img
+            src="image/face16.jpg" alt="">
+    </div>
+    <input type="button" value="点我" id="btn">
+    <script>
+        window.onload = function(){
+            var btn = document.getElementById('btn');
+            var imgs = document.querySelectorAll('img');
+
+            btn.onclick = function(){
+               for (var i = 0;i<imgs.length;i++){
+                   (function(i){
+                       setTimeout(function(){
+                           montion(imgs[i],'10ms',function(){
+                               this.style.transform = 'scale(0)';
+                               this.style.opacity = '0';
+                           },function(){
+                               //第二个运动
+                               montion(this,'1s',function(){
+                                   this.style.transform = 'scale(1)';
+                                   this.style.opacity = 1;
+                               });
+                           });
+                       },Math.random()*1000);
+                   })(i)
+                    }
+                }
+
+
+            //运动函数（运动的对象，运动的时间，运动的属性函数，运动完成后要做的事情）
+            function montion(obj,time,doFn,callBack){
+                obj.style.transition = time;
+                doFn.call(obj); //调用函数，把this的指向给obj
+
+                obj.sddEventListener('transition',function(){
+                    callBack.call(obj);
+                },false);
+
+            }
+        }
+    </script>
+</body>
+</html>
